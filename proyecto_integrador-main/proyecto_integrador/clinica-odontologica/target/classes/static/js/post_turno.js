@@ -1,67 +1,64 @@
-window.addEventListener("load", function () {
-  const formulario = document.querySelector("#add_new_turno");
-  const url = "http://localhost:8082";
+window.addEventListener('load', function () {
 
-  formulario.addEventListener("submit", function (event) {
-    event.preventDefault();
 
-    const fechaYHora = document.querySelector("#fechaTurno");
-    const odontologo_id = document.querySelector("#odontologoId");
-    const paciente_id = document.querySelector("#pacienteId");
+    const formulario = document.querySelector('#add_new_turno');
+    const fechaYHora = document.querySelector('#fechaTurno');
+    const odontologo_id = document.querySelector('#odontologoId');
+    const paciente_id = document.querySelector('#pacienteId');
+    const url = "http://localhost:8082";
 
-    const payload = {
-      fechaYHora: formatFechaYHora(fechaYHora.value),
-      odontologo_id: odontologo_id.value,
-      paciente_id: paciente_id.value,
-    };
+    formulario.addEventListener('submit', function (event) {
+        event.preventDefault()
 
-    console.log(payload);
+        const payload = {
+            fechaYHora: fechaYHora.value.replace('T',' ')+":00",
+            odontologo_id: odontologo_id.value,
+            paciente_id: paciente_id.value,
+        };
+        console.log(fechaYHora);
+        console.log(payload);
 
-    const settings = {
-      method: "POST",
-      body: JSON.stringify(payload),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+        const settings = {
+            method: 'POST',
+            body: JSON.stringify(payload),
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }
 
-    fetch(`${url}/turnos/registrar`, settings)
-      .then(handleResponse)
-      .catch(handleError);
-  });
+        
 
-  function handleResponse(response) {
-    if (!response.ok) {
-      throw new Error(
-        `Error al agregar el turno. Código de estado: ${response.status}`
-      );
+        fetch(`${url}/turnos/registrar`, settings)
+            .then(response => response.json())
+            .then(data => {
+
+                 let successAlert = '<div class="alert alert-success alert-dismissible">' +
+                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                     '<strong></strong> Turno agregado </div>'
+
+                 document.querySelector('#response').innerHTML = successAlert;
+                 document.querySelector('#response').style.display = "block";
+                 resetUploadForm();
+
+            })
+            .catch(error => {
+
+                    let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
+                                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
+                                     '<strong> Error intente nuevamente</strong> </div>'
+
+                      document.querySelector('#response').innerHTML = errorAlert;
+                      document.querySelector('#response').style.display = "block";
+
+                     resetUploadForm();})
+    });
+
+
+    function resetUploadForm(){
+        document.querySelector('#fechaTurno').value = "";
+        document.querySelector('#pacienteId').value = "";
+        document.querySelector('#odontologoId').value = "";
+
     }
 
-    return response.json();
-  }
-
-  function handleError(error) {
-    console.error("Error:", error);
-
-    let errorAlert =
-      '<div class="alert alert-danger alert-dismissible">' +
-      '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-      "<strong> Error, intente nuevamente</strong> </div>";
-
-    document.querySelector("#response").innerHTML = errorAlert;
-    document.querySelector("#response").style.display = "block";
-
-    resetUploadForm();
-  }
-
-  function resetUploadForm() {
-    document.querySelector("#fechaTurno").value = "";
-    document.querySelector("#pacienteId").value = "";
-    document.querySelector("#odontologoId").value = "";
-  }
-
-  function formatFechaYHora(fechaYHora) {
-    // Formatear la fecha y hora según tus necesidades
-    return fechaYHora.replace("T", " ") + ":00";
-  }
 });
