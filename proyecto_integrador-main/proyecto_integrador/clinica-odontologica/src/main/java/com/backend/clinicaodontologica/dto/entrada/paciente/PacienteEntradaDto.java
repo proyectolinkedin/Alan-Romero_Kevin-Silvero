@@ -8,27 +8,27 @@ import java.time.LocalDate;
 
 
 public class PacienteEntradaDto {
-    @NotNull(message = "El nombre del paciente no puede ser nulo")
-    @NotBlank(message = "Debe especificarse el nombre del paciente")
-    @Size(max = 50, message = "El nombre debe tener hasta 50 caracteres")
+    @NotNull(message = "El nombre del paciente no puede estar vacío.")
+    @NotBlank(message = "Es necesario proporcionar el nombre del paciente.")
+    @Size(max = 50, message = "El nombre debe tener hasta 50 caracteres.")
     private String nombre;
 
-    @Size(max = 50, message = "El apellido debe tener hasta 50 caracteres")
-    @NotNull(message = "El apellido del paciente no puede ser nulo")
-    @NotBlank(message = "Debe especificarse el apellido del paciente")
+    @Size(max = 50, message = "El apellido puede tener un máximo de 50 caracteres.")
+    @NotNull(message = "El apellido del paciente no puede estar vacío.")
+    @NotBlank(message = "Es necesario proporcionar el apellido del paciente.")
     private String apellido;
 
-    @NotNull(message = "El dni del paciente no puede ser nulo")
-    @Digits(integer = 12, fraction = 0, message = "El numero de DNI no debe ser mayor a 12")
+    @NotNull(message = "El DNI del paciente no puede estar vacío.")
+    @Digits(integer = 12, fraction = 0, message = "El número de DNI no debe exceder los 12 caracteres.")
     private Integer dni;
 
-    @FutureOrPresent(message = "La fecha no puede ser anterior al día de hoy")
-    @NotNull(message = "Debe especificarse la fecha de ingreso del paciente")
+    @FutureOrPresent(message = "La fecha no puede ser anterior a la fecha actual.")
+    @NotNull(message = "Es necesario proporcionar la fecha de ingreso del paciente.")
     //@JsonProperty("fecha_ingreso")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate fechaIngreso;
 
-    @NotNull(message = "El domicilio del paciente no puede ser nulo")
+    @NotNull(message = "El domicilio del paciente no puede estar vacío.")
     @Valid
     private DomicilioEntradaDto domicilioEntradaDto;
 

@@ -9,14 +9,14 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 public class TurnoEntradaDto {
-    @FutureOrPresent(message = "La fecha no puede ser anterior al día de hoy")
-    @NotNull(message = "Debe especificarse la fecha y hora del turno")
+    @FutureOrPresent(message = "La fecha no puede ser anterior a la fecha actual.")
+    @NotNull(message = "Es necesario proporcionar la fecha y la hora del turno.")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaYHora;
-    @NotNull(message = "El turno debe tener un Odontologo asignado")
+    @NotNull(message = "Es obligatorio asignar un odontólogo al turno." )
     @Valid
     private Long odontologo;
-    @NotNull(message = "El turno debe tener un Paciente")
+    @NotNull(message = "Es necesario asignar un paciente al turno.")
     @Valid
     private Long paciente;
 

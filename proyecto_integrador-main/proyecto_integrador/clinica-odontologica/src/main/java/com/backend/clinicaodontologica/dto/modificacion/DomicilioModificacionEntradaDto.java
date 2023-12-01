@@ -9,24 +9,24 @@ import javax.validation.constraints.NotNull;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DomicilioModificacionEntradaDto {
 
-    @NotNull(message = "Debe proveerse el id del domicilio que se desea modificar")
+    @NotNull(message = "Es necesario proporcionar el ID del domicilio que se desea modificar.")
     private Long id;
 
-    @NotNull(message = "El campo calle no puede ser nulo")
-    @NotBlank(message = "El campo calle no puede estar en blanco")
+    @NotNull(message = "El campo calle no puede estar vacío.")
+    @NotBlank(message = "El campo calle no puede estar en blanco.")
     private String calle;
 
-    @NotNull(message = "El campo numero no puede ser nulo")
-    @Digits(integer = 8, fraction = 0, message = "El número debe tener como máximo 8 dígitos")
+    @NotNull(message = "El campo número no puede estar vacío.")
+    @Digits(integer = 8, fraction = 0, message = "El número debe contener como máximo 8 dígitos.")
 
     private Integer numero;
 
-    @NotNull(message = "El campo localidad no puede ser nulo")
-    @NotBlank(message = "El campo localidad no puede estar en blanco")
+    @NotNull(message = "El campo localidad no puede estar vacío.")
+    @NotBlank(message = "El campo localidad no puede estar en blanco.")
     private String localidad;
 
-    @NotNull(message = "El campo provincia no puede ser nulo")
-    @NotBlank(message = "El campo provincia no puede estar en blanco")
+    @NotNull(message = "El campo provincia no puede estar vacío.")
+    @NotBlank(message = "El campo provincia no puede estar en blanco.")
     private String provincia;
 
     public DomicilioModificacionEntradaDto() {

@@ -12,17 +12,17 @@ import java.time.LocalDateTime;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TurnoModificacionEntradaDto {
-    @NotNull(message = "Debe proveerse el id del turno que se desea modificar")
+    @NotNull(message = "Es necesario proporcionar el ID del turno que se desea modificar.")
     private Long id;
 
-    @FutureOrPresent(message = "La fecha no puede ser anterior al día de hoy")
+    @FutureOrPresent(message = "La fecha no puede ser anterior a la fecha actual.")
     @NotNull(message = "Debe especificarse la fecha y hora del turno")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime fechaYHora;
-    @NotNull(message = "El turno debe tener un Odontologo asignado")
+    @NotNull(message = "Es obligatorio asignar un odontólogo al turno.")
     @Valid
     private Long odontologo;
-    @NotNull(message = "El turno debe tener un Paciente")
+    @NotNull(message = "Es necesario asignar un paciente al turno.")
     @Valid
     private Long paciente;
 
